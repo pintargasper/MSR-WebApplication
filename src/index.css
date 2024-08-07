@@ -1,13 +1,181 @@
+:root {
+  scroll-behavior: smooth;
+  --color-dark-gray: #212529;
+  --color-dark-light-gray: rgba(33, 37, 41, 0.4);
+  --color-red: #ce1212;
+  --color-dark-slate-blue: #37373f;
+  --color-scarlet: #ec2727;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-light-gray: #eeeeee;
+  --color-transparent: rgba(255, 255, 255, 0);
+  --color-dark-grey-transparent: rgba(55, 55, 63, 0.1)
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--color-dark-slate-blue), "Times New Roman", serif;
+}
+
+/*--------------------------------------------------------------
+# Index - About Section
+--------------------------------------------------------------*/
+.about {
+  background-color: var(--color-light-gray);
+}
+
+.about .button {
+  background: var(--color-red);
+  border: 0;
+  padding: 12px 40px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.about .button:hover {
+  background: var(--color-scarlet);
+}
+
+/*--------------------------------------------------------------
+# Index - Download Section
+--------------------------------------------------------------*/
+.download {
+  background-color: var(--color-light-gray);
+}
+
+.download .requirements {
+  max-width: 393px;
+  margin-bottom: 25px;
+  padding: 25px;
+  background: var(--color-scarlet);
+  color: var(--color-white);
+  height: auto;
+}
+
+.download .requirements h3 {
+  font-weight: 700;
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.download .requirements p {
+  margin-bottom: 5px;
+}
+
+.download .requirements .download-button i {
+  font-size: 14px;
+}
+
+.download .files .member {
+  text-align: center;
+  background: var(--color-white);
+  padding: 40px 30px;
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--color-dark-grey-transparent);
+  transition: 0.3s;
+}
+
+.download .files .member h4 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 0 30px 0;
+}
+
+.download .files .member:hover {
+  transform: scale(1.1);
+}
+
+.download .files .member .image {
+  width: 50px;
+  height: 50px;
+}
+
+@media (min-width: 992px) and (max-width: 1399px){
+  .download .requirements {
+    margin: auto auto 25px;
+    width: 50%;
+  }
+}
+
+@media (max-width: 991px){
+  .download .requirements {
+    margin: auto auto 25px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Index - Github Section
+--------------------------------------------------------------*/
+.github {
+  background-color: var(--color-light-gray);
+}
+
+.github .member {
+  text-align: center;
+  background: var(--color-white);
+  width: 100%;
+  height: 100%;
+  max-height: 350px;
+  border: 3px solid var(--color-dark-grey-transparent);
+  transition: 0.3s;
+}
+
+.github .member h2 {
+  font-size: 35px;
+  font-weight: 400;
+  margin: 0 0 30px 0;
+}
+
+.github .member:hover {
+  transform: scale(1.1);
+}
+
+.github .member .description {
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+  font-size: 14px;
+  height: 60px;
+}
+
+.github .member .image {
+  width: 100px;
+  height: 100px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .github .member {
+    margin: auto auto 25px;
+    max-width: 75%;
+  }
+
+  .github .member .description {
+    height: 40px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .github .member .description {
+    height: 80px;
+  }
 }
