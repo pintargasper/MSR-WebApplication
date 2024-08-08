@@ -1,8 +1,8 @@
-
 const Index = () => {
+
     return (
         <>
-            <div className={"container"}>
+            <div className={"container mb-2"}>
                 <section id={"about"} className={"d-flex align-items-center about mt-5"}>
                     <div className={"container"}>
                         <div className={"row justify-content-between gy-5"}>
@@ -11,7 +11,7 @@ const Index = () => {
                                 className={"col-lg-7 order-1 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start"}>
                                 <p>
                                     <video className={"img-fluid"} controls autoPlay={false} loop={true}>
-                                        <source src={"/files/trailer-video.mp4"}
+                                        <source src={"/files/video/trailer-video.mp4"}
                                                 type={"video/mp4"}/>
                                         <track src={"../captions/En.vtt"} kind={"captions"} srcLang={"en"}
                                                label={"english_captions"}/>
@@ -42,7 +42,7 @@ const Index = () => {
                 <section id={"download"} className={"download"}>
                     <div className={"container"}>
                         <div className={"text-center mt-2 mb-3"}>
-                            <h2>Download</h2>
+                            <h2 className={"pt-2"}>Download</h2>
                             <p>Memo Stick Rescue</p>
                         </div>
                         <div className={"row"}>
@@ -64,7 +64,7 @@ const Index = () => {
                                     <div className={"col-md-4 mb-4"}>
                                         <div
                                             className={"member d-flex flex-column justify-content-center align-items-center"}>
-                                            <img src={"/files/windows-icon.png"}
+                                            <img src={"/files/img/windows-icon.png"}
                                                  alt={"windows-icon"} className={"image"}/>
                                             <h4>Windows</h4>
                                             <p>EXE file</p>
@@ -76,7 +76,7 @@ const Index = () => {
                                     <div className={"col-md-4 mb-4"}>
                                         <div
                                             className={"member d-flex flex-column justify-content-center align-items-center"}>
-                                            <img src={"files/linux-icon.png"}
+                                            <img src={"files/img/linux-icon.png"}
                                                  alt={"linux-icon"} className={"image"}/>
                                             <h4>Linux</h4>
                                             <p>ZIP file</p>
@@ -88,7 +88,7 @@ const Index = () => {
                                     <div className={"col-md-4 mb-4"}>
                                         <div
                                             className={"member d-flex flex-column justify-content-center align-items-center"}>
-                                            <img src={"files/android-icon.png"}
+                                            <img src={"files/img/android-icon.png"}
                                                  alt={"android-icon"} className={"image"}/>
                                             <h4>Android</h4>
                                             <p>APK file</p>
@@ -105,14 +105,14 @@ const Index = () => {
                 <section id={"github"} className={"github"}>
                     <div className={"container"}>
                         <div className={"text-center mt-2 mb-3"}>
-                            <h2>GitHub</h2>
+                            <h2 className={"pt-2"}>GitHub</h2>
                             <p>Source code</p>
                         </div>
                     </div>
                     <div className={"row"}>
-                        <div className={"col-lg-4 mb-4"}>
+                        <div className={"col-lg-4 mb-4 p-4"}>
                             <div className={"member d-flex flex-column justify-content-center align-items-center"}>
-                                <img src={"/files/github-icon.png"} alt={"github-icon"}
+                                <img src={"/files/img/github-icon.png"} alt={"github-icon"}
                                      className={"image"}/>
                                 <h4>Video game</h4>
                                 <i className={"description"}>This code gives us insight into the game itself, in which
@@ -124,9 +124,9 @@ const Index = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={"col-lg-4 mb-4"}>
+                        <div className={"col-lg-4 mb-4 p-4"}>
                             <div className={"member d-flex flex-column justify-content-center align-items-center"}>
-                                <img src={"/files/github-icon.png"} alt={"github-icon"}
+                                <img src={"/files/img/github-icon.png"} alt={"github-icon"}
                                      className={"image"}/>
                                 <h4>Web application</h4>
                                 <i className={"description"}>This code provides insight into the development process of a
@@ -137,9 +137,9 @@ const Index = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={"col-lg-4 mb-4"}>
+                        <div className={"col-lg-4 mb-4 p-4"}>
                             <div className={"member d-flex flex-column justify-content-center align-items-center"}>
-                                <img src={"/files/github-icon.png"} alt={"github-icon"}
+                                <img src={"/files/img/github-icon.png"} alt={"github-icon"}
                                      className={"image"}/>
                                 <h4>Server application</h4>
                                 <i className={"description"}>This code gives us insight into the very background and logic

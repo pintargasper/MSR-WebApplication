@@ -35,6 +35,12 @@ h6 {
   font-family: var(--color-dark-slate-blue), "Times New Roman", serif;
 }
 
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /*--------------------------------------------------------------
 # Index - About Section
 --------------------------------------------------------------*/
@@ -178,4 +184,144 @@ h6 {
   .github .member .description {
     height: 80px;
   }
+}
+
+/*--------------------------------------------------------------
+# Page 404
+--------------------------------------------------------------*/
+.page404 .button {
+  height: auto;
+  font-size: large;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+.footer {
+  background-color: var(--color-light-gray);
+  margin-top: auto;
+}
+
+/*--------------------------------------------------------------
+# Navigation
+--------------------------------------------------------------*/
+.navbar .navigation-hamburger {
+  color: var(--color-transparent) !important;
+}
+
+@media (max-width: 300px){
+  .navbar .hide-text span {
+    display: none;
+  }
+
+  .navbar .navbar-title-change-text::after {
+    content: "MSR";
+  }
+}
+
+@media (min-width: 576px) {
+  .navbar {
+    max-height: 50px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Form Section
+--------------------------------------------------------------*/
+.form {
+  background-color: var(--color-light-gray);
+}
+
+.form .input-form .input:focus {
+  border-color: var(--color-red);
+}
+
+.form .input-form .label {
+  display: flex;
+  align-items: center;
+}
+
+.form .input-form .input {
+  height: 48px;
+}
+
+.form .input-form .button {
+  background: var(--color-red);
+  border: 0;
+  padding: 12px 40px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.form .input-form .button:hover {
+  background: var(--color-scarlet);
+}
+
+/*--------------------------------------------------------------
+# News Section
+--------------------------------------------------------------*/
+.news {
+  background-color: var(--color-light-gray);
+}
+
+.news .news-card {
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.news .news-card:hover {
+  transform: scale(1.1);
+}
+
+.news .image {
+  height: 150px;
+  width: 100%;
+}
+
+.news .button {
+  background: var(--color-red);
+  border: 0;
+  padding: 12px 40px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.news .button:hover {
+  background: var(--color-scarlet);
+}
+
+/*--------------------------------------------------------------
+# News - Single Section
+--------------------------------------------------------------*/
+.single {
+  background-color: var(--color-light-gray);
+}
+
+.single .image {
+  max-height: 400px;
+}
+
+.single .news-image {
+  max-height: 300px;
+  max-width: 70%;
+}
+
+.single .single-news {
+  max-height: 200px !important;
+}
+
+.single .button {
+  background: var(--color-red);
+  border: 0;
+  padding: 12px 40px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.single .button:hover {
+  background: var(--color-scarlet);
 }
