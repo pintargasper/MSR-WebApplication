@@ -1,6 +1,19 @@
 import {Link} from "react-router-dom";
+import {useAuth} from "../auth/AuthContext";
+import * as Token from "../auth/Cookies";
+import {useEffect, useState} from "react";
 
 const Page404 = () => {
+
+    const [signIn, setSignIn] = useState(false);
+
+    const { userRole, userData } = useAuth();
+
+    const token = Token.getToken();
+
+    useEffect(() => {
+        setSignIn(!!token);
+    }, [token, userRole]);
 
     return (
         <div className={"page404 d-flex align-items-center justify-content-center mt-5"}>
@@ -10,7 +23,7 @@ const Page404 = () => {
                 <p className={"lead"}>
                     We apologize, but the page you are looking for could not be found.
                 </p>
-                <Link to={"/"}>
+                <Link to={!signIn ? "/" : `/${userData.username}`}>
                     <input
                         type={"button"}
                         value={"Return to home page"}

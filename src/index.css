@@ -225,6 +225,11 @@ h6 {
   }
 }
 
+.navbar img {
+  min-width: 40px;
+  min-height: 40px;
+}
+
 /*--------------------------------------------------------------
 # Form Section
 --------------------------------------------------------------*/
@@ -242,6 +247,7 @@ h6 {
 }
 
 .form .input-form .input {
+  box-shadow: none;
   height: 48px;
 }
 
@@ -324,4 +330,62 @@ h6 {
 
 .single .button:hover {
   background: var(--color-scarlet);
+}
+
+/*--------------------------------------------------------------
+# Popup
+--------------------------------------------------------------*/
+.popup .text-right {
+  text-align: right;
+}
+
+.popup button {
+  margin-right: 10px;
+}
+
+/*--------------------------------------------------------------
+# Settings
+--------------------------------------------------------------*/
+.settings .button {
+  background: var(--color-red);
+  border: 0;
+  padding: 12px 40px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.settings .button:hover {
+  background: var(--color-scarlet);
+}
+
+.settings .input-label {
+  display: block;
+  font-size: large;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.settings .input-form .input:focus {
+  border-color: var(--color-red);
+}
+
+.settings .input-form .label {
+  display: flex;
+  align-items: center;
+}
+
+.settings .input-form .input {
+  box-shadow: none;
+  height: 48px;
+}
+
+.settings .image {
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 200px;
 }

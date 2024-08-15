@@ -119,8 +119,10 @@ const Index = () => {
                                     everything takes place. From the store where you can buy different skins, to the game
                                     itself, which you can play</i>
                                 <div className={"text-center mt-4"}>
-                                    <a href={"https://github.com/Mister-3551/MemoStickRescue"} target={"_blank"}
-                                       rel={"noreferrer"}>View code</a>
+                                    <div className={"mt-3 pb-2"}>
+                                        <a href={"https://github.com/Mister-3551/MemoStickRescue"} target={"_blank"}
+                                           rel={"noreferrer"}>View code</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -132,8 +134,10 @@ const Index = () => {
                                 <i className={"description"}>This code provides insight into the development process of a
                                     web application designed to view your stats and stats from any player</i>
                                 <div className={"text-center mt-4"}>
-                                    <a href={"https://github.com/Mister-3551/MSR-WebApplication"} target={"_blank"}
-                                       rel={"noreferrer"}>View code</a>
+                                    <div className={"mt-3 pb-2"}>
+                                        <a href={"https://github.com/Mister-3551/MSR-WebApplication"} target={"_blank"}
+                                           rel={"noreferrer"}>View code</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -145,8 +149,10 @@ const Index = () => {
                                 <i className={"description"}>This code gives us insight into the very background and logic
                                     of the so-called backend, which is intended for data calculation</i>
                                 <div className={"text-center mt-4"}>
-                                    <a href={"https://github.com/Mister-3551/MSR-Server"} target={"_blank"}
-                                       rel={"noreferrer"}>View code</a>
+                                    <div className={"mt-3 pb-2"}>
+                                        <a href={"https://github.com/Mister-3551/MSR-Server"} target={"_blank"}
+                                           rel={"noreferrer"}>View code</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

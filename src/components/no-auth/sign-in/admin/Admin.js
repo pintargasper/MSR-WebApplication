@@ -1,30 +1,21 @@
-import {Link, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
-import * as SignInHandler from "./SignInHandler";
-import {Popup} from "../../popup/Popup";
-import {useAuth} from "../../auth/AuthContext";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {Popup} from "../../../popup/Popup";
+import * as AdminHandler from "./AdminHandler";
+import {useAuth} from "../../../auth/AuthContext";
 
-const SignIn = () => {
+const Admin = () => {
 
     const [usernameEmail, setUsernameEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
-    const [isDeleted, setIsDeleted] = useState(false);
 
-    const { setTokenValue, setUserRoleValue, deletedAccount, accountDelete } = useAuth();
+    const { setTokenValue, setUserRoleValue } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (deletedAccount) {
-            setIsDeleted(true);
-            accountDelete(false);
-            setModalOpen(true);
-        }
-    }, [accountDelete, deletedAccount]);
-
-    const handleSignIn = (event) => {
-        SignInHandler.signIn(event, usernameEmail, password, setError, setModalOpen, navigate, setTokenValue, setUserRoleValue, setIsDeleted).then(result => null);
+    const handleAdmin = (event) => {
+        AdminHandler.signIn(event, usernameEmail, password, setError, setModalOpen, navigate, setTokenValue, setUserRoleValue).then(result => null);
     }
 
     return (
@@ -33,8 +24,8 @@ const SignIn = () => {
                 <div className={"container"}>
                     <div className={"row justify-content-center"}>
                         <div className={"col-lg-5 text-center"}>
-                            <form method={"post"} className={"input-form p-3 p-md-4"} onSubmit={handleSignIn}>
-                                <h1>Sign in</h1>
+                            <form method={"post"} className={"input-form p-3 p-md-4"} onSubmit={handleAdmin}>
+                                <h1>Console</h1>
                                 <div className={"form-group mt-2"}>
                                     <input type={"text"} className={"input form-control mt-1"} name={"emailAddressUsername"}
                                            placeholder={"Enter email address or username"}
@@ -49,9 +40,6 @@ const SignIn = () => {
                                            autoComplete={"current-password"}
                                            onChange={(event) => setPassword(event.target.value)}/>
                                 </div>
-                                <div className={"form-group text-sm-start mt-2"}>
-                                    <Link to={"/forgot-password"}>Forgot Password?</Link>
-                                </div>
                                 <div className={"text-center mt-2"}>
                                     <button type={"submit"} className={"button"}>Sign In</button>
                                 </div>
@@ -63,17 +51,8 @@ const SignIn = () => {
             <Popup trigger={modalOpen} setTrigger={setModalOpen}>
                 <div className={"popup form"}>
                     <div className={"text-center"}>
-                        {
-                            !isDeleted ?
-                                <>
-                                    <h3>Sign in</h3>
-                                    <p>{error}</p>
-                                </> :
-                                <>
-                                    <h3>Account</h3>
-                                    <p>Your account has been deleted</p>
-                                </>
-                        }
+                        <h3>Sign in</h3>
+                        <p>{error}</p>
                     </div>
                     <div className={"text-right"}>
                         <div className={"input-form"}>
@@ -86,4 +65,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default Admin

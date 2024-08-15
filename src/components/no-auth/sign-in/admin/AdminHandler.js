@@ -1,9 +1,7 @@
 import axios from "axios";
 
-export const signIn = async (event, usernameEmail, password, setError, setModalOpen, navigate, setTokenValue, setUserRoleValue, setIsDeleted) => {
-
+export const signIn = async (event, usernameEmail, password, setError, setModalOpen, navigate, setTokenValue, setUserRoleValue) => {
     event.preventDefault();
-    setIsDeleted(false);
 
     const validationResult = validateInputs(usernameEmail, password);
 
@@ -14,12 +12,10 @@ export const signIn = async (event, usernameEmail, password, setError, setModalO
     }
 
     try {
-        const { data } = await axios.post(process.env.REACT_APP_SIGN_IN, {
+        const { data } = await axios.post(process.env.REACT_APP_ADMIN_SIGN_IN, {
             usernameOrEmailAddress: usernameEmail.trim(),
             password: password
         });
-
-        const [data1, data2] = data;
 
         const messages = {
             "Bad Credentials": "The provided credentials are incorrect.",
@@ -28,12 +24,12 @@ export const signIn = async (event, usernameEmail, password, setError, setModalO
             "No privileges": "You do not have the appropriate permissions"
         };
 
-        if (messages[data1.trim()]) {
-            setError(messages[data1.trim()]);
+        if (messages[data.trim()]) {
+            setError(messages[data.trim()]);
         } else {
-            setTokenValue(data1);
-            setUserRoleValue("ROLE_USER");
-            navigate(`/${data2}`);
+            setTokenValue(data);
+            setUserRoleValue("ROLE_ADMIN");
+            navigate("/dashboard");
             return;
         }
         setModalOpen(true);
