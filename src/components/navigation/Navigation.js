@@ -29,97 +29,107 @@ const Navigation = () => {
     return (
         <Navbar id={"navbar"} bg={"light"} expand={"sm"} className={"navbar navbar-expand-lg navbar-light bg-light fixed-top"} expanded={expanded}>
             <Container fluid>
-                {
-                    userRole === null && (
-                        <Link to={"/"} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
-                            Memo Stick Rescue
+                {userRole === null && (
+                    <Link to={"/"} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
+                        Memo Stick Rescue
+                    </Link>
+                )}
+                {userRole === "ROLE_ADMIN" && (
+                    <>
+                        <Link to={"/dashboard"} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
+                            Dashboard
                         </Link>
-                    )
-                }
-                {
-                    userRole === "ROLE_ADMIN" && (
-                        <>
-                            <Link to={"/dashboard"} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
-                                Dashboard
-                            </Link>
-                        </>
-                    )
-                }
-                {
-                    userRole === "ROLE_USER" && (
-                        <>
-                            <Link to={`/${userData.username}`} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
-                                Home
-                            </Link>
-                        </>
-                    )
-                }
-                <Navbar.Toggle aria-controls={"navbarScroll"} className={"navigation-hamburger"} onClick={() => setExpanded(!expanded)}/>
+                    </>
+                )}
+                {userRole === "ROLE_USER" && (
+                    <>
+                        <Link to={`/${userData.username}`} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
+                            Home
+                        </Link>
+                    </>
+                )}
+                <Navbar.Toggle aria-controls={"navbarScroll"} className={"navigation-hamburger"} onClick={() => setExpanded(!expanded)} />
                 <Navbar.Collapse id={"navbarScroll"}>
                     <Nav className={"me-auto my-2 my-lg-0"} navbarScroll>
-                        {
-                            userRole === null && (
-                                <Link to={"/news"} className={"nav-link"} onClick={closeNavbar}>News</Link>
-                            )
-                        }
-                        {
-                            userRole === "ROLE_USER" && (
-                                <>
-                                    <Link to={`/${userData.username}/statistics`} className={"nav-link"} onClick={closeNavbar}>Statistics</Link>
-                                </>
-                            )
-                        }
-                    </Nav>
-                    <Nav className={"d-flex"}>
-                        {
-                            userRole === null && (
-                                <>
-                                    <Link to={"/sign-in"} className={"nav-link"} onClick={closeNavbar}>Sign In</Link>
-                                    <Link to={"/sign-up"} className={"nav-link"} onClick={closeNavbar}>Sign Up</Link>
-                                </>
-                            )
-                        }
-                        {
-                            userRole !== null && (
-                                <Dropdown align="end">
-                                    <Dropdown.Toggle variant="link" id="dropdown-custom-components">
-                                        <img src={imageUrl} alt={"user-icon"} className={"img-fluid rounded-circle"} width={40} height={40} />
+                        {userRole === null && (
+                            <Link to={"/news"} className={"nav-link"} onClick={closeNavbar}>
+                                News
+                            </Link>
+                        )}
+                        {userRole === "ROLE_USER" && (
+                            <>
+                                <Dropdown>
+                                    <Dropdown.Toggle variant={"link"} id={"dropdown-user-statistics"} className={"nav-link"}>
+                                        Statistics
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item as="div" className="d-flex align-items-center">
-                                            <FaCog size={24} className="mr-2" />
-                                            {
-                                                userRole === "ROLE_ADMIN" && (
-                                                    <Link to={"/settings"} className="dropdown-item" onClick={closeNavbar}>
-                                                        Settings
-                                                    </Link>
-                                                )
-                                            }
-                                            {
-                                                userRole === "ROLE_USER" && (
-                                                    <Link to={`/${userData.username}/settings`} className="dropdown-item" onClick={closeNavbar}>
-                                                        Settings
-                                                    </Link>
-                                                )
-                                            }
+                                        <Dropdown.Item as={Link} to={`/${userData.username}/weapons`} onClick={closeNavbar}>
+                                            Weapons
                                         </Dropdown.Item>
-                                        <Dropdown.Item as={"div"} className={"d-flex align-items-center"}>
-                                            <FaSignOutAlt  size={24} className="mr-2"/>
-                                            <button className={"dropdown-item"} onClick={(event) => {
-                                                closeNavbar();
-                                                signOut(event);
-                                            }}>Sign Out
-                                            </button>
+                                        <Dropdown.Item as={Link} to={`/${userData.username}/missions`} onClick={closeNavbar}>
+                                            Missions
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                            )
-                        }
+                            </>
+                        )}
+                    </Nav>
+                    <Nav className={"d-flex"}>
+                        {userRole === null && (
+                            <>
+                                <Link to={"/sign-in"} className={"nav-link"} onClick={closeNavbar}>
+                                    Sign In
+                                </Link>
+                                <Link to={"/sign-up"} className={"nav-link"} onClick={closeNavbar}>
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
+                        {userRole !== null && (
+                            <Dropdown align={"end"}>
+                                <Dropdown.Toggle variant={"link"} id={"dropdown-custom-components"}>
+                                    <img
+                                        src={imageUrl}
+                                        alt={"user-icon"}
+                                        className={"img-fluid rounded-circle"}
+                                        width={40}
+                                        height={40}
+                                    />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item as={"div"} className={"d-flex align-items-center"}>
+                                        <FaCog size={24} className={"mr-2"} />
+                                        {userRole === "ROLE_ADMIN" && (
+                                            <Link to={"/settings"} className={"dropdown-item"} onClick={closeNavbar}>
+                                                Settings
+                                            </Link>
+                                        )}
+                                        {userRole === "ROLE_USER" && (
+                                            <Link to={`/${userData.username}/settings`} className={"dropdown-item"} onClick={closeNavbar}>
+                                                Settings
+                                            </Link>
+                                        )}
+                                    </Dropdown.Item>
+                                    <Dropdown.Item as={"div"} className={"d-flex align-items-center"}>
+                                        <FaSignOutAlt size={24} className={"mr-2"} />
+                                        <button
+                                            className={"dropdown-item"}
+                                            onClick={(event) => {
+                                                closeNavbar();
+                                                signOut(event);
+                                            }}
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
     );
-}
+};
 
 export default Navigation;

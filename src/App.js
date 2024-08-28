@@ -11,18 +11,19 @@ import News from "./components/no-auth/news/News";
 import Single from "./components/no-auth/news/Single";
 import Dashboard from "./components/admin-auth/Dashboard";
 import Admin from "./components/no-auth/sign-in/admin/Admin";
-import Profile from "./components/user-auth/Profile";
+import Home from "./components/user-auth/home/Home";
 import Settings from "./components/user-auth/settings/Settings";
-import * as Token from "./components/auth/Cookies"
 import ErrorAuth from "./components/auth/ErrorAuth";
-import Statistics from "./components/user-auth/Statistics";
+import Weapons from "./components/user-auth/statistics/Weapons";
 import UserAuth from "./components/auth/UserAuth";
 import AdminAuth from "./components/auth/AdminAuth";
 import PublicAuth from "./components/auth/PublicAuth";
+import {useAuth} from "./components/auth/AuthContext";
+import Notification from "./components/auth/cookies/Notification";
 
 const App = () => {
 
-    const token = Token.getToken();
+    const { token, cookieAgreement } = useAuth();
 
     return (
         <div className={"app"}>
@@ -47,8 +48,8 @@ const App = () => {
                     <Route exact path={"/settings"} element={<AdminAuth><Settings/></AdminAuth>}/>
 
                     {/*User Auth Required*/}
-                    <Route exact path={"/:username"} element={<UserAuth><Profile/></UserAuth>}/>
-                    <Route exact path={"/:username/statistics"} element={<UserAuth><Statistics/></UserAuth>}/>
+                    <Route exact path={"/:username"} element={<UserAuth><Home/></UserAuth>}/>
+                    <Route exact path={"/:username/weapons"} element={<UserAuth><Weapons/></UserAuth>}/>
                     <Route exact path={"/:username/settings"} element={<UserAuth><Settings/></UserAuth>}/>
 
                     {/*Error*/}
@@ -56,6 +57,7 @@ const App = () => {
                 </Routes>
 
                 {!token ? <Footer/> : null}
+                {!cookieAgreement ? <Notification/> : null}
             </BrowserRouter>
         </div>
     );

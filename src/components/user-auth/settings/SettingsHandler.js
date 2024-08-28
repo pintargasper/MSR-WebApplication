@@ -1,10 +1,8 @@
 import axios from "axios";
-import * as Token from "../../auth/Cookies";
+import * as Token from "../../auth/cookies/Cookies";
 import {validateDeleteInputs, validateInputs, validatePasswordsInputs} from "../../auth/Validator";
 
 export const updateProfile = async (event, fullName, username, emailAddress, birthdate, country, setProfileImage, image, setImage, setImagePreview, setError, setModalOpen, setModalType) => {
-
-    const token = Token.getToken();
 
     const validationResult = validateInputs(fullName, username, emailAddress, null, null, birthdate, country, image);
 
@@ -14,7 +12,7 @@ export const updateProfile = async (event, fullName, username, emailAddress, bir
                 method: "post",
                 url: process.env.REACT_APP_USER_UPDATE_PROFILE,
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${Token.getToken()}`,
                     "Content-Type": "multipart/form-data"
                 },
                 data: {
@@ -30,7 +28,7 @@ export const updateProfile = async (event, fullName, username, emailAddress, bir
             const data = response.data;
 
             Token.save(data, true);
-            setError("Profile successfully updated");
+            setError("Home successfully updated");
             setImagePreview(null);
             setModalType("UPDATE");
             setModalOpen(true);
@@ -73,13 +71,12 @@ export const passwordChange = async (event, currentPassword, newPassword, confir
     const validationResult = validatePasswordsInputs(currentPassword, newPassword, confirmPassword);
 
     if (validationResult === true) {
-        const token = Token.getToken();
         try {
             const response = await axios({
                 method: "post",
                 url: process.env.REACT_APP_USER_CHANGE_PASSWORD,
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${Token.getToken()}`
                 },
                 data: {
                     currentPassword: currentPassword,
@@ -112,13 +109,12 @@ export const deleteAccount = async (event, username, verificationString, navigat
     const validationResult = validateDeleteInputs(username, verificationString);
 
     if (validationResult === true) {
-        const token = Token.getToken();
         try {
             const response = await axios({
                 method: "post",
                 url: process.env.REACT_APP_USER_DELETE_ACCOUNT,
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${Token.getToken()}`
                 },
                 data: {
                     verificationString: verificationString

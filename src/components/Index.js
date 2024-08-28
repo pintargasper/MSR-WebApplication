@@ -135,7 +135,7 @@ const Index = () => {
                                     web application designed to view your stats and stats from any player</i>
                                 <div className={"text-center mt-4"}>
                                     <div className={"mt-3 pb-2"}>
-                                        <a href={"https://github.com/Mister-3551/MSR-WebApplication"} target={"_blank"}
+                                        <a href={"https://github.com/pintargasper/MSR-WebApplication"} target={"_blank"}
                                            rel={"noreferrer"}>View code</a>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@ const Index = () => {
                                     of the so-called backend, which is intended for data calculation</i>
                                 <div className={"text-center mt-4"}>
                                     <div className={"mt-3 pb-2"}>
-                                        <a href={"https://github.com/Mister-3551/MSR-Server"} target={"_blank"}
+                                        <a href={"https://github.com/pintargasper/MSR-Server"} target={"_blank"}
                                            rel={"noreferrer"}>View code</a>
                                     </div>
                                 </div>

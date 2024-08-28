@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
-import * as Token from "../auth/Cookies";
+import * as Token from "../auth/cookies/Cookies";
 import {useEffect, useState} from "react";
 
 const Page404 = () => {

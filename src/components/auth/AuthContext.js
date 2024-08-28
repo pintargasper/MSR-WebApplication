@@ -1,12 +1,13 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import axios from "axios";
-import * as Cookies from "./Cookies";
+import * as Cookies from "./cookies/Cookies";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
     const [token, setToken] = useState(Cookies.getToken());
+    const [cookieAgreement, setCookieAgreement] = useState(Cookies.getCookieAgreement());
     const [userRole, setUserRole] = useState(null);
     const [userData, setUserData] = useState({});
     const [deletedAccount, setDeletedAccount] = useState(false);
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 
 
     const setTokenValue = (value) => {setToken(value); Cookies.save(value, true);}
+    const setCookieAgreementValue = (value) => {setCookieAgreement(value); Cookies.saveCookieAgreement(value);}
     const clearCookie = () => {Cookies.clear();}
     const setUserRoleValue = (role) => setUserRole(role);
     const signOut = () => {Cookies.clear(); setUserRoleValue(null); setTokenValue(null); clearCookie();}
@@ -46,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     const accountDelete = (is) => setDeletedAccount(is);
 
     return (
-        <AuthContext.Provider value={{ token, setTokenValue: setTokenValue, userRole: userRole, setUserRoleValue: setUserRoleValue, signOutUser: signOut, userData: userData, profileImage: profileImage, setProfileImage: addProfileImage, accountDelete: accountDelete, deletedAccount: deletedAccount }}>
+        <AuthContext.Provider value={{ token, cookieAgreement, setCookieAgreementValue: setCookieAgreementValue, setTokenValue: setTokenValue, userRole: userRole, setUserRoleValue: setUserRoleValue, signOutUser: signOut, userData: userData, profileImage: profileImage, setProfileImage: addProfileImage, accountDelete: accountDelete, deletedAccount: deletedAccount }}>
             {children}
         </AuthContext.Provider>
     );

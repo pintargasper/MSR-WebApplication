@@ -24,6 +24,7 @@ const Settings = () => {
     const [error, setError] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState("IMAGE");
+    const [loading, setLoading] = useState(true);
 
     const profileFileInputRef = useRef(null);
 
@@ -41,6 +42,7 @@ const Settings = () => {
             setBirthDate(userData.birthdate || "");
             setCountry(userData.country || "");
         }
+        setLoading(false);
     }, [userData]);
 
     const handleProfilePhotoChange = (event) => {
@@ -100,6 +102,10 @@ const Settings = () => {
             accountDelete
         ).then(result => null);
     };
+
+    if (loading) {
+        return null;
+    }
 
     if (userData.username === username || userRole === "ROLE_ADMIN") {
         return (
@@ -172,7 +178,7 @@ const Settings = () => {
                                     <label htmlFor={"formPhotoInput"} className={"form-label d-block"}>Image</label>
                                     <div className={"d-flex align-items-end"}>
                                         <input
-                                            type="file"
+                                            type={"file"}
                                             id={"formPhotoInput"}
                                             name={"formPhotoInput"}
                                             className={"d-none"}
@@ -316,24 +322,16 @@ const Settings = () => {
                                         id={"profile-photo-upload"}
                                         type={"file"}
                                         ref={profileFileInputRef}
-                                        className={"form-control-file w-100"}
+                                        className={"form-control-file w-100 input visually-hidden"}
                                         onChange={handleProfilePhotoChange}
                                         accept={".jpg, .jpeg, .png, .gif"}
-                                        style={{height: "auto", fontSize: "large", display: "none"}}
                                     />
                                     {temporaryImagePreview && (
-                                        <div style={{marginTop: "10px"}}>
-                                            <img
-                                                src={temporaryImagePreview}
-                                                alt={"Profile Preview"}
-                                                style={{
-                                                    maxWidth: "100%",
-                                                    maxHeight: "300px",
-                                                    borderRadius: "5px",
-                                                    boxShadow: "0 0 5px rgba(0,0,0,0.3)"
-                                                }}
-                                            />
-                                        </div>
+                                        <img
+                                            src={temporaryImagePreview}
+                                            alt={"Home Preview"}
+                                            className={"image-preview"}
+                                        />
                                     )}
                                 </>
                             )}

@@ -1,21 +1,17 @@
 import axios from "axios";
 import * as Token from "../../auth/cookies/Cookies";
 
-export const signOut = (event, navigate, signOutUser) => {
-
-    event.preventDefault();
-    const token = Token.getToken();
+export const getWeaponStatistics = (setWeaponStatistics) => {
 
     axios({
         method: "post",
-        url: process.env.REACT_APP_SIGN_OUT,
+        url: process.env.REACT_APP_USER_WEAPON_STATISTICS,
         headers: {
-            Authorization: `Bearer ${token}`
-        }
+            Authorization: `Bearer ${Token.getToken()}`,
+        },
     }).then(response => response.data)
         .then((data) => {
-            signOutUser();
-            navigate(data);
+            setWeaponStatistics(data);
         })
         .catch((error) => {
             console.log(error);

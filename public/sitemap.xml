@@ -1,0 +1,22 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>https://msr.gasperpintar.com/</loc>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>https://msr.gasperpintar.com/news</loc>
+        <priority>0.90</priority>
+    </url>
+    <url>
+        <loc>https://msr.gasperpintar.com/sign-in</loc>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://msr.gasperpintar.com/sign-up</loc>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://msr.gasperpintar.com/forgot-password</loc>
+        <priority>0.50</priority>
+    </url>
+</urlset>

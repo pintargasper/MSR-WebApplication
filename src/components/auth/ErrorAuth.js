@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
-import * as Token from "./Cookies";
+import * as Token from "./cookies/Cookies";
 import Page404 from "../pages/404";
 
 const ErrorAuth = ({ children }) => {
