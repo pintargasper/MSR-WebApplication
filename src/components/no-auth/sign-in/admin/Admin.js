@@ -15,7 +15,18 @@ const Admin = () => {
     const navigate = useNavigate();
 
     const handleAdmin = (event) => {
-        AdminHandler.signIn(event, usernameEmail, password, setError, setModalOpen, navigate, setTokenValue, setUserRoleValue).then(result => null);
+        event.preventDefault();
+
+        AdminHandler.signIn(usernameEmail, password).then(result => {
+            if (result.success) {
+                setTokenValue(result.data);
+                setUserRoleValue("ROLE_ADMIN");
+                navigate("/dashboard");
+            } else {
+                setError(result.error);
+                setModalOpen(true);
+            }
+        });
     }
 
     return (
@@ -24,7 +35,7 @@ const Admin = () => {
                 <div className={"container"}>
                     <div className={"row justify-content-center"}>
                         <div className={"col-lg-5 text-center"}>
-                            <form method={"post"} className={"input-form p-3 p-md-4"} onSubmit={handleAdmin}>
+                            <form className={"input-form p-3 p-md-4"}>
                                 <h1>Console</h1>
                                 <div className={"form-group mt-2"}>
                                     <input type={"text"} className={"input form-control mt-1"} name={"emailAddressUsername"}
@@ -41,13 +52,14 @@ const Admin = () => {
                                            onChange={(event) => setPassword(event.target.value)}/>
                                 </div>
                                 <div className={"text-center mt-2"}>
-                                    <button type={"submit"} className={"button"}>Sign In</button>
+                                    <button type={"submit"} className={"button"} onClick={handleAdmin}>Sign In</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
+
             <Popup trigger={modalOpen} setTrigger={setModalOpen}>
                 <div className={"popup form"}>
                     <div className={"text-center"}>

@@ -3,10 +3,17 @@ import {Link} from "react-router-dom";
 import * as NewsHandler from "./NewsHandler";
 
 const News = () => {
+
     const [news, setNews] = useState([]);
 
     useEffect(() => {
-        NewsHandler.getNews(setNews);
+        NewsHandler.getNews().then(result => {
+            if (result.success) {
+                setNews(result.data === undefined ? [] : result.data);
+                return;
+            }
+            setNews([]);
+        });
     }, []);
 
     return (

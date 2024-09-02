@@ -13,8 +13,25 @@ const Single = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        NewsHandler.single(title, setSingle);
-        NewsHandler.suggestions(title, setSuggestions);
+
+        NewsHandler.single(title)
+            .then(singleResult => {
+                if (singleResult.success) {
+                    setSingle(singleResult.data);
+                    return;
+                }
+                setSingle([]);
+            });
+
+        NewsHandler.suggestions(title)
+            .then(suggestionsResult => {
+                if (suggestionsResult.success) {
+                    setSuggestions(suggestionsResult.data);
+                    return;
+                }
+                setSuggestions([]);
+            });
+
     }, [location, title]);
 
     if (single || Object.keys(single).length !== 0) {

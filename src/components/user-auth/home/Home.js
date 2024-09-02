@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import CircleChart from "../../chart/CircleChart";
 import HalfCircleGraph from "../../chart/HalfCircleGraph";
 import * as HomeHandler from "./HomeHandler";
+import * as Cookies from "../../auth/cookies/Cookies";
 
 const Home = () => {
 
@@ -15,7 +16,10 @@ const Home = () => {
     const { username } = useParams();
 
     useEffect(() => {
-        HomeHandler.getStatistics(setStatistics, setLoading);
+        HomeHandler.getStatistics(Cookies.getToken()).then(result => {
+            setStatistics(result.success ? (result.data === undefined ? {} : result.data) : {});
+            setLoading(false);
+        });
     }, []);
 
     if (loading) {
@@ -29,16 +33,13 @@ const Home = () => {
     return (
         <div className={"home container mt-5"}>
             <div className={"d-flex align-items-center mt-5"}>
-                <div>
-                    <img
-                        id={"formPhoto"}
-                        src={process.env.REACT_APP_PROFILE_IMAGES + (userData.image || "basic-image.jpg")}
-                        alt={"Profile"}
-                        className={"img-thumbnail img-fluid"}
-                        height={100}
-                        width={100}
-                    />
-                </div>
+                <img
+                    src={process.env.REACT_APP_PROFILE_IMAGES + (userData.image || "basic-image.jpg")}
+                    alt={userData.image}
+                    className={"img-thumbnail img-fluid img-profile"}
+                    width={100}
+                    height={100}
+                />
                 <div className={"ms-3"}>
                     <div className={"h2 mb-0 text-uppercase"}>{userData.username}</div>
                     <div className={"h5 mt-0"}>Level {statistics.level}</div>
@@ -52,42 +53,42 @@ const Home = () => {
                             <div
                                 className={"box-body p-3 d-flex align-items-center justify-content-center flex-grow-1"}>
                                 <div className={"w-100 d-flex align-items-center justify-content-center"}>
-                                    <CircleChart value={statistics.winPercentage ?? 0} maxValue={100}/>
+                                    <CircleChart value={statistics.winPercentage} maxValue={100}/>
                                 </div>
                             </div>
                             <div className={"box-footer p-2"}>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Wins</div>
-                                    <div className={"box-stats-value fw-bold"}>{statistics.wins ?? 0}</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.wins}</div>
                                 </div>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Losses</div>
-                                    <div className={"box-stats-value fw-bold"}>{statistics.losses ?? 0}</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.losses}</div>
                                 </div>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Score</div>
-                                    <div className={"box-stats-value fw-bold"}>{statistics.score ?? 0}</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.score}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className={"col-sm-12 col-md-4 mb-4"}>
                         <div className={"overview-box border rounded d-flex flex-column"}>
-                            <div className={"box-header text-white p-2"}>Money per second</div>
+                            <div className={"box-header text-white p-2"}>Money per minute</div>
                             <div
                                 className={"box-body p-3 d-flex align-items-center justify-content-center flex-grow-1"}>
                                 <div className={"w-100 d-flex align-items-center justify-content-center"}>
-                                    <div className={"h1 m-0"}>145€</div>
+                                    <div className={"h1 m-0"}>{statistics.moneyPerMinute}€</div>
                                 </div>
                             </div>
                             <div className={"box-footer p-2"}>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Money</div>
-                                    <div className={"box-stats-value fw-bold"}>{statistics.money ?? 0}€</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.money}€</div>
                                 </div>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Time played</div>
-                                    <div className={"box-stats-value fw-bold"}>{statistics.timePlayed ?? "0s"}</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.timePlayed}</div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +99,7 @@ const Home = () => {
                             <div
                                 className={"box-body p-3 d-flex align-items-center justify-content-center flex-grow-1"}>
                                 <div className={"w-100 d-flex align-items-center justify-content-center"}>
-                                    <HalfCircleGraph value={statistics.killDeathRatio ?? 0} maxValue={10}/>
+                                    <HalfCircleGraph value={statistics.killDeathRatio} maxValue={10}/>
                                 </div>
                             </div>
                             <div className={"box-footer p-2"}>
@@ -112,7 +113,7 @@ const Home = () => {
                                 </div>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Accuracy</div>
-                                    <div className={"box-stats-value fw-bold"}>11.57%</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.accuracy}%</div>
                                 </div>
                             </div>
                         </div>
@@ -147,8 +148,8 @@ const Home = () => {
                             <div className={"box-body p-3 d-flex align-items-center justify-content-center"}>
                                 <div className={"w-100 d-flex align-items-center justify-content-center"}>
                                     <img
-                                        src={process.env.REACT_APP_WEAPON_IMAGES + statistics.weaponImage}
-                                        alt={statistics.weaponName}
+                                        src={process.env.REACT_APP_MISSION_IMAGES + statistics.missionImage}
+                                        alt={statistics.missionName}
                                         className={"img-fluid"}
                                     />
                                 </div>
@@ -156,11 +157,11 @@ const Home = () => {
                             <div className={"box-footer p-2"}>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Name</div>
-                                    <div className={"box-stats-value fw-bold"}>Training</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.missionName}</div>
                                 </div>
                                 <div className={"footer-cell"}>
                                     <div className={"box-stats-header"}>Score</div>
-                                    <div className={"box-stats-value fw-bold"}>1840</div>
+                                    <div className={"box-stats-value fw-bold"}>{statistics.missionScore}</div>
                                 </div>
                             </div>
                         </div>

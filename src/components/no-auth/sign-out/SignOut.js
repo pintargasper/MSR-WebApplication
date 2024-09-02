@@ -1,23 +1,17 @@
 import axios from "axios";
-import * as Token from "../../auth/cookies/Cookies";
 
-export const signOut = (event, navigate, signOutUser) => {
+export const signOut = async (token) => {
 
-    event.preventDefault();
-    const token = Token.getToken();
-
-    axios({
-        method: "post",
-        url: process.env.REACT_APP_SIGN_OUT,
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).then(response => response.data)
-        .then((data) => {
-            signOutUser();
-            navigate(data);
-        })
-        .catch((error) => {
-            console.log(error);
+    try {
+        const response = await axios({
+            method: "post",
+            url: process.env.REACT_APP_SIGN_OUT,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
 }

@@ -5,25 +5,42 @@ import * as NavigationHandler from "./NavigationHandler";
 import { useAuth } from "../auth/AuthContext";
 import * as SignOutHandler from "../no-auth/sign-out/SignOut";
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
+import * as Cookies from "../auth/cookies/Cookies";
 
 const Navigation = () => {
-    const [expanded, setExpanded] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
 
-    const { userRole, userData, profileImage, signOutUser } = useAuth();
+    const [expanded, setExpanded] = useState(false);
+    const [username, setUsername] = useState("");
+    const [image, setImage] = useState("");
+    const [loading, setLoading] = useState(true);
+
+    const { userRole, userData, signOutUser } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         NavigationHandler.close(expanded, setExpanded);
-        setImageUrl(`${process.env.REACT_APP_PROFILE_IMAGES}${profileImage ? profileImage : "basic-image.jpg"}`);
-    }, [expanded, userData, profileImage, userRole]);
+        if (userData) {
+            setUsername(userData.username);
+            setImage(`${process.env.REACT_APP_PROFILE_IMAGES}${userData.image ? userData.image : "basic-image.jpg"}`);
+        }
+        setLoading(false);
+    }, [expanded, userData, userRole]);
+
+    if (loading) {
+        return null;
+    }
 
     const closeNavbar = () => {
         setExpanded(false);
     };
 
     const signOut = (event) => {
-        SignOutHandler.signOut(event, navigate, signOutUser);
+        event.preventDefault();
+
+        SignOutHandler.signOut(Cookies.getToken()).then(result => {
+            signOutUser();
+            navigate(result);
+        });
     };
 
     return (
@@ -31,19 +48,19 @@ const Navigation = () => {
             <Container fluid>
                 {userRole === null && (
                     <Link to={"/"} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
-                        Memo Stick Rescue
+                        <span>Memo Stick Rescue</span>
                     </Link>
                 )}
                 {userRole === "ROLE_ADMIN" && (
                     <>
-                        <Link to={"/dashboard"} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
+                        <Link to={"/dashboard"} className={"navbar-brand hide-text"} onClick={closeNavbar}>
                             Dashboard
                         </Link>
                     </>
                 )}
                 {userRole === "ROLE_USER" && (
                     <>
-                        <Link to={`/${userData.username}`} className={"navbar-brand hide-text navbar-title-change-text"} onClick={closeNavbar}>
+                        <Link to={`/${username}`} className={"navbar-brand"} onClick={closeNavbar}>
                             Home
                         </Link>
                     </>
@@ -63,10 +80,10 @@ const Navigation = () => {
                                         Statistics
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item as={Link} to={`/${userData.username}/weapons`} onClick={closeNavbar}>
+                                        <Dropdown.Item as={Link} to={`/${username}/weapons`} onClick={closeNavbar}>
                                             Weapons
                                         </Dropdown.Item>
-                                        <Dropdown.Item as={Link} to={`/${userData.username}/missions`} onClick={closeNavbar}>
+                                        <Dropdown.Item as={Link} to={`/${username}/missions`} onClick={closeNavbar}>
                                             Missions
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
@@ -89,7 +106,7 @@ const Navigation = () => {
                             <Dropdown align={"end"}>
                                 <Dropdown.Toggle variant={"link"} id={"dropdown-custom-components"}>
                                     <img
-                                        src={imageUrl}
+                                        src={image}
                                         alt={"user-icon"}
                                         className={"img-fluid rounded-circle"}
                                         width={40}
@@ -105,7 +122,7 @@ const Navigation = () => {
                                             </Link>
                                         )}
                                         {userRole === "ROLE_USER" && (
-                                            <Link to={`/${userData.username}/settings`} className={"dropdown-item"} onClick={closeNavbar}>
+                                            <Link to={`/${username}/settings`} className={"dropdown-item"} onClick={closeNavbar}>
                                                 Settings
                                             </Link>
                                         )}

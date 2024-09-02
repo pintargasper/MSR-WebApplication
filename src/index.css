@@ -192,8 +192,18 @@ h6 {
 # Page 404
 --------------------------------------------------------------*/
 .page404 .button {
-  height: auto;
-  font-size: large;
+  background: var(--color-red);
+  border: 0;
+  padding: 12px 40px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+  max-width: 300px;
+}
+
+.page404 .button:hover {
+  color: var(--color-white);
+  background: var(--color-scarlet);
 }
 
 /*--------------------------------------------------------------
@@ -393,8 +403,8 @@ h6 {
 }
 
 .settings .image-preview {
-  max-width: 100%;
-  max-height: 300px;
+  max-width: 200px;
+  max-height: 200px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
@@ -402,6 +412,11 @@ h6 {
 /*--------------------------------------------------------------
 # Home
 --------------------------------------------------------------*/
+.home .img-profile {
+  min-width: 100px;
+  min-height: 100px;
+}
+
 .home .overview-box .box-header {
   background: var(--color-red);
   border: 0;
@@ -493,7 +508,7 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Weapons
+# Weapons And Missions
 --------------------------------------------------------------*/
 .statistics .table-active {
   --bs-table-bg-state: var(--color-light-gray) !important;
@@ -519,6 +534,11 @@ h6 {
   max-height: 50px;
 }
 
+.statistics .mission-image {
+  max-width: 200px;
+  max-height: 100px;
+}
+
 .statistics .star-image {
   max-width: 50px;
 }
@@ -529,6 +549,24 @@ h6 {
 
 .statistics .weapon-selected {
   max-height: 150px;
+}
+
+.statistics .button {
+  background: var(--color-red);
+  border: 0;
+  padding: 5px 20px;
+  color: var(--color-white);
+  transition: 0.4s;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.statistics .button:hover {
+  background: var(--color-scarlet);
+}
+
+.mission-link {
+  color: var(--color-red);
 }
 
 /*--------------------------------------------------------------
@@ -571,4 +609,15 @@ h6 {
 
 .notification .button:hover {
   background: var(--color-scarlet);
+}
+
+/*--------------------------------------------------------------
+# Table
+--------------------------------------------------------------*/
+.table th {
+  min-width: 100px;
+}
+
+.table th:first-child {
+  min-width: 50px;
 }

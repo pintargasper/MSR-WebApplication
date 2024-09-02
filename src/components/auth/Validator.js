@@ -168,3 +168,25 @@ export const validateDeleteInputs = (username, verificationString) => {
     }
     return true;
 }
+
+export const validateSignInInputs = (usernameEmail, password) => {
+    if (!usernameEmail || !password) {
+        return "Fields cannot be empty.";
+    }
+    return true;
+}
+
+export const validateResetPasswordInput = (emailAddress) => {
+    if (!emailAddress) {
+        return "Fields cannot be empty.";
+    }
+
+    const validators = [validateEmail(emailAddress)];
+
+    for (const validation of validators) {
+        if (validation !== true) {
+            return validation;
+        }
+    }
+    return true;
+}

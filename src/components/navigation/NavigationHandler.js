@@ -1,4 +1,5 @@
 export const close = (expanded, setExpanded) => {
+
     const handleClickOutside = (event) => {
         if (expanded) {
             const navbar = document.getElementById("navbar");
@@ -7,7 +8,6 @@ export const close = (expanded, setExpanded) => {
             }
         }
     };
-
     document.addEventListener("click", handleClickOutside);
 
     return () => {

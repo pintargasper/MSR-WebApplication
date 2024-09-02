@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
-import * as Token from "./cookies/Cookies";
+import * as Cookies from "./cookies/Cookies";
 import Page404 from "../pages/404";
 
 const ErrorAuth = ({ children }) => {
+
     const [auth, setAuth] = useState(false);
 
-    const token = Token.getToken();
     const { setUserRoleValue } = useAuth();
+    const token = Cookies.getToken();
 
     useEffect(() => {
         if (!token) {

@@ -1,8 +1,8 @@
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import * as SignInHandler from "./SignInHandler";
-import {Popup} from "../../popup/Popup";
-import {useAuth} from "../../auth/AuthContext";
+import {Popup} from "../../../popup/Popup";
+import {useAuth} from "../../../auth/AuthContext";
 
 const SignIn = () => {
 
@@ -24,7 +24,20 @@ const SignIn = () => {
     }, [accountDelete, deletedAccount]);
 
     const handleSignIn = (event) => {
-        SignInHandler.signIn(event, usernameEmail, password, setError, setModalOpen, navigate, setTokenValue, setUserRoleValue, setIsDeleted).then(result => null);
+        event.preventDefault();
+        setIsDeleted(false);
+
+        SignInHandler.signIn(usernameEmail, password).then(result => {
+            if (result.success) {
+                const [data1, data2] = result.data;
+                setTokenValue(data1);
+                setUserRoleValue("ROLE_USER");
+                navigate(`/${data2}`);
+            } else {
+                setError(result.error);
+                setModalOpen(true);
+            }
+        });
     }
 
     return (
@@ -33,7 +46,7 @@ const SignIn = () => {
                 <div className={"container"}>
                     <div className={"row justify-content-center"}>
                         <div className={"col-lg-5 text-center"}>
-                            <form method={"post"} className={"input-form p-3 p-md-4"} onSubmit={handleSignIn}>
+                            <form className={"input-form p-3 p-md-4"}>
                                 <h1>Sign in</h1>
                                 <div className={"form-group mt-2"}>
                                     <input type={"text"} className={"input form-control mt-1"} name={"emailAddressUsername"}
@@ -53,7 +66,7 @@ const SignIn = () => {
                                     <Link to={"/forgot-password"}>Forgot Password?</Link>
                                 </div>
                                 <div className={"text-center mt-2"}>
-                                    <button type={"submit"} className={"button"}>Sign In</button>
+                                    <button type={"submit"} className={"button"} onClick={handleSignIn}>Sign In</button>
                                 </div>
                             </form>
                         </div>

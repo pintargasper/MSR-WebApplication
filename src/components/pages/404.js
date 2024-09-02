@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
-import * as Token from "../auth/cookies/Cookies";
+import * as Cookies from "../auth/cookies/Cookies";
 import {useEffect, useState} from "react";
 
 const Page404 = () => {
@@ -8,8 +8,7 @@ const Page404 = () => {
     const [signIn, setSignIn] = useState(false);
 
     const { userRole, userData } = useAuth();
-
-    const token = Token.getToken();
+    const token = Cookies.getToken();
 
     useEffect(() => {
         setSignIn(!!token);

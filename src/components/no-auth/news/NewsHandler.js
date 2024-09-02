@@ -1,43 +1,40 @@
 import axios from "axios";
 
-export const getNews = (setNews) => {
+export const getNews = async () => {
 
-    axios({
-        method: "get",
-        url: process.env.REACT_APP_NEWS
-    }).then(response => response.data)
-        .then((data) => {
-            setNews(data);
-        })
-        .catch((error) => {
-            console.log(error);
+    try {
+        const response = await axios({
+            method: "get",
+            url: process.env.REACT_APP_NEWS
         });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: "Error fetching news" };
+    }
 }
 
-export const single = (title, setSingle) => {
+export const single = async (title) => {
 
-    axios({
-        method: "get",
-        url: process.env.REACT_APP_SINGLE_NEWS + title,
-    }).then(response => response.data)
-        .then((data) => {
-            setSingle(data);
-        })
-        .catch((error) => {
-            console.log(error);
+    try {
+        const response = await axios({
+            method: "get",
+            url: `${process.env.REACT_APP_SINGLE_NEWS}${title}`
         });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: "Error fetching news" };
+    }
 }
 
-export const suggestions = (title, setSuggestions) => {
+export const suggestions = async (title) => {
 
-    axios({
-        method: "get",
-        url: process.env.REACT_APP_NEWS_SUGGESTIONS + title,
-    }).then(response => response.data)
-        .then((data) => {
-            setSuggestions(data);
-        })
-        .catch((error) => {
-            console.log(error);
+    try {
+        const response = await axios({
+            method: "get",
+            url: `${process.env.REACT_APP_NEWS_SUGGESTIONS}${title}`
         });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: "Error fetching news suggestions" };
+    }
 }

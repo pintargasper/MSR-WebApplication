@@ -1,23 +1,38 @@
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../../auth/AuthContext";
 import { useParams } from "react-router-dom";
-import Page404 from "../../pages/404";
+import Page404 from "../../../pages/404";
 import { useState, useEffect } from "react";
-import * as StatisticsHandler from "./WeaponsHandler";
+import * as WeaponsHandler from "./WeaponsHandler";
+import * as Cookies from "../../../auth/cookies/Cookies";
 
 const Weapons = () => {
+
     const [weaponsStatistics, setWeaponsStatistics] = useState([]);
     const [selectedWeapon, setSelectedWeapon] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     const { userData } = useAuth();
     const { username } = useParams();
 
     useEffect(() => {
-        StatisticsHandler.getWeaponStatistics((data) => {
-            setWeaponsStatistics(data);
-            if (data.length > 0) {
-                setSelectedWeapon(data[0]);
+        WeaponsHandler.getWeaponStatistics(Cookies.getToken()).then(result => {
+            if (result.success) {
+                setWeaponsStatistics(result.data === undefined ? [] : result.data);
+
+                if (result.data !== undefined && result.data.length > 0) {
+                    setSelectedWeapon(result.data[0]);
+                    setLoading(false);
+                }
+                return;
             }
+            setWeaponsStatistics([]);
+            setLoading(false);
         });
     }, []);
+
+    if (loading) {
+        return null;
+    }
 
     const handleRowClick = (weapon) => {
         setSelectedWeapon(weapon);
@@ -95,16 +110,17 @@ const Weapons = () => {
                                 <div className={"card-body"}>
                                     <div className={"row"}>
                                         <h5 className={"card-title text-center mt-2"}>{selectedWeapon.name}</h5>
-                                        <div className={"col-lg-12 col-sm-4 text-center"}>
+                                        <div className={"col-lg-12 col-sm-12 text-center"}>
                                             <img
                                                 src={`${process.env.REACT_APP_WEAPON_IMAGES}${selectedWeapon.image}`}
                                                 className={"img-fluid weapon-selected"}
                                                 alt={selectedWeapon.name}
                                             />
                                         </div>
+                                        <hr/>
                                         <div className={"col-lg-12 col-sm-4"}>
                                             <h6 className={"card-title mt-3"}>Weapon statistics</h6>
-                                            <p className={"card-text m-0"}>Damage: {selectedWeapon.damage}%</p>
+                                            <p className={"card-text m-0"}>Damage: {selectedWeapon.damage}</p>
                                             <p className={"card-text m-0"}>Accuracy: {selectedWeapon.weaponAccuracy}%</p>
                                             <p className={"card-text m-0"}>Range: {selectedWeapon.bulletRange}</p>
                                             <p className={"card-text m-0"}>Rate of fire: {selectedWeapon.fireRate}</p>

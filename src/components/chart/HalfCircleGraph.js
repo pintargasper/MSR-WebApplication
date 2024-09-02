@@ -5,6 +5,7 @@ import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 Chart.register(ArcElement, Tooltip, Legend);
 
 const HalfCircleGraph = ( {value, maxValue} ) => {
+
     const data = {
         labels: [],
         datasets: [

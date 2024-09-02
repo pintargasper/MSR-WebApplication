@@ -2,6 +2,7 @@ import axios from "axios";
 import { validateSignInInputs } from "../../../auth/Validator";
 
 export const signIn = async (usernameEmail, password) => {
+
     const validationResult = validateSignInInputs(usernameEmail, password);
 
     if (validationResult !== true) {
@@ -9,7 +10,7 @@ export const signIn = async (usernameEmail, password) => {
     }
 
     try {
-        const { data } = await axios.post(process.env.REACT_APP_ADMIN_SIGN_IN, {
+        const { data } = await axios.post(process.env.REACT_APP_SIGN_IN, {
             usernameOrEmailAddress: usernameEmail.trim(),
             password: password
         });
@@ -24,7 +25,7 @@ export const signIn = async (usernameEmail, password) => {
         if (messages[data]) {
             return { success: false, error: messages[data] };
         } else {
-            return { success: true, data: data };
+            return { success: true, data };
         }
     } catch (error) {
         return { success: false, error: "Username or email address does not exist" };

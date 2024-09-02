@@ -3,6 +3,7 @@ import * as Cookies from "../cookies/Cookies";
 import { useAuth } from "../AuthContext";
 
 const Notification = () => {
+
     const [customizeMode, setCustomizeMode] = useState(false);
     const [cookiePreferences, setCookiePreferences] = useState({
         essential: true,

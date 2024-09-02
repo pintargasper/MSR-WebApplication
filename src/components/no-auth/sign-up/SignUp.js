@@ -18,11 +18,28 @@ const SignUp = () => {
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
-        Countries.countries(setCountriesList);
+        Countries.countries().then(result => setCountriesList(result.success ? (result.data === undefined ? [] : result.data) : []));
     }, []);
 
     const handleSignUp = (event) => {
-        SignUpHandler.signUp(event, fullName, username, emailAddress, password, confirmPassword, birthdate, country, setError, setModalOpen).then(result => null);
+        event.preventDefault();
+
+        SignUpHandler.signUp(
+            fullName,
+            username,
+            emailAddress,
+            password,
+            confirmPassword,
+            birthdate,
+            country
+        ).then(result => {
+            if (result.success) {
+                setError("Account successfully created");
+            } else {
+                setError(result.error);
+            }
+            setModalOpen(true);
+        });
     }
 
     return (
